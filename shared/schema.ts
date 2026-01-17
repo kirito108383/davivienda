@@ -29,7 +29,19 @@ export const accounts = pgTable("accounts", {
   balance: doublePrecision("balance").notNull().default(0),
   status: text("status"),
   statusMessage: text("status_message"),
+  currency: text("currency").notNull().default("COP"),
 });
+
+// Currency options with symbols
+export const CURRENCIES = {
+  USD: { code: "USD", symbol: "$", name: "Dólar estadounidense" },
+  EUR: { code: "EUR", symbol: "€", name: "Euro" },
+  COP: { code: "COP", symbol: "$", name: "Peso colombiano" },
+  GBP: { code: "GBP", symbol: "£", name: "Libra esterlina" },
+  BRL: { code: "BRL", symbol: "R$", name: "Real brasileño" },
+} as const;
+
+export type CurrencyCode = keyof typeof CURRENCIES;
 
 export const insertAccountSchema = createInsertSchema(accounts).omit({
   id: true,
