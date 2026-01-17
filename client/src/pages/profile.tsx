@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation } from 'wouter';
 import { ArrowLeft, CreditCard, User, ClipboardCheck, Phone, Mail, Calendar, FileText, DownloadCloud, History, ShieldCheck } from 'lucide-react';
-import { User as UserType, Account, Transaction } from '@/types';
+import { User as UserType, Account, Transaction, CurrencyCode } from '@/types';
 import { formatCurrency, maskAccountNumber, formatDateTime } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -218,7 +218,7 @@ const ProfilePage = () => {
                     <div className="flex items-center space-x-2">
                       <span className="text-gray-700">Saldo Disponible</span>
                     </div>
-                    <span className="font-medium text-[#D50000]">{formatCurrency(account?.balance || 0)}</span>
+                    <span className="font-medium text-[#D50000]">{formatCurrency(account?.balance || 0, account?.currency as CurrencyCode)}</span>
                   </div>
                 </div>
               </CardContent>

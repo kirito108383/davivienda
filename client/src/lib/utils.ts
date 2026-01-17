@@ -2,18 +2,27 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { es } from "date-fns/locale";
 import { format } from "date-fns";
+import { CURRENCIES, CurrencyCode } from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
+export function formatCurrency(amount: number, currencyCode?: CurrencyCode): string {
+  const currency = currencyCode || 'COP';
+  const currencyInfo = CURRENCIES[currency] || CURRENCIES.COP;
+  
+  const formatted = new Intl.NumberFormat('es-CO', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   }).format(amount);
+  
+  return `${currencyInfo.symbol} ${formatted}`;
+}
+
+export function getCurrencySymbol(currencyCode?: CurrencyCode): string {
+  const currency = currencyCode || 'COP';
+  return CURRENCIES[currency]?.symbol || CURRENCIES.COP.symbol;
 }
 
 export function formatToLocaleMonth(month: number, year: number): string {

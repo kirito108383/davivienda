@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { User, MoreHorizontal, Home, CreditCard, QrCode, Send, Eye, EyeOff, CirclePlus, ArrowRight, Key, Repeat, FileText, HeadphonesIcon, MessageCircleIcon, AlertCircle } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { formatCurrency } from '@/lib/utils';
+import { CurrencyCode } from '@/types';
 import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'wouter';
 import { LoadingOverlay } from '@/components/LoadingOverlay';
@@ -142,7 +143,7 @@ const HomePage = () => {
                 <p className="text-sm">Saldo disponible</p>
                 <div className="flex items-center">
                   <p className="text-2xl font-bold mr-2">
-                    {showBalance ? formatCurrency(account?.balance || 0) : "$ ********"}
+                    {showBalance ? formatCurrency(account?.balance || 0, account?.currency as CurrencyCode) : "$ ********"}
                   </p>
                   <button onClick={() => setShowBalance(!showBalance)}>
                     {showBalance ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -168,7 +169,7 @@ const HomePage = () => {
               <div>
                 <p className="text-sm">Saldo total</p>
                 <p className="text-lg font-bold">
-                  {showBalance ? formatCurrency(account?.balance || 0) : "$ ********"}
+                  {showBalance ? formatCurrency(account?.balance || 0, account?.currency as CurrencyCode) : "$ ********"}
                 </p>
               </div>
             </div>

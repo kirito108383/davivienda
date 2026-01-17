@@ -12,16 +12,9 @@ import {
   Shield
 } from "lucide-react";
 import { Loader2 } from "lucide-react";
+import { CURRENCIES, CurrencyCode } from "@/types";
 
-// Helper to format currency
-const formatCurrency = (amount: number | string) => {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(Number(amount));
-};
+import { formatCurrency } from "@/lib/utils";
 
 // Mask account number
 const maskAccount = (num: string) => `****${num.slice(-4)}`;
@@ -128,7 +121,7 @@ export default function Dashboard() {
                   <div className="mb-6 relative z-10">
                     <p className="text-xs text-gray-400 mb-1">Saldo disponible</p>
                     <p className="text-3xl font-bold text-gray-900 tracking-tight">
-                      {formatCurrency(account.balance)}
+                      {formatCurrency(account.balance, account.currency as CurrencyCode)}
                     </p>
                   </div>
 

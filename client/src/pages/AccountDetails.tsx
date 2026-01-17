@@ -3,15 +3,8 @@ import { useRoute } from "wouter";
 import { ArrowLeft, ArrowUpRight, ArrowDownLeft, Download, Calendar } from "lucide-react";
 import { Link } from "wouter";
 import { Loader2 } from "lucide-react";
-
-const formatCurrency = (amount: number | string) => {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(Number(amount));
-};
+import { CurrencyCode } from "@/types";
+import { formatCurrency } from "@/lib/utils";
 
 const formatDate = (dateString: string | null) => {
   if (!dateString) return "";
@@ -61,7 +54,7 @@ export default function AccountDetails() {
               <div>
                 <p className="text-sm text-gray-500 mb-1">Saldo total</p>
                 <p className="text-4xl font-bold text-gray-900 tracking-tight">
-                  {formatCurrency(account.balance)}
+                  {formatCurrency(account.balance, account.currency as CurrencyCode)}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -111,7 +104,7 @@ export default function AccountDetails() {
                   <span className={`font-mono font-medium ${
                     tx.type === 'Credit' ? 'text-green-600' : 'text-gray-900'
                   }`}>
-                    {tx.type === 'Credit' ? '+' : '-'} {formatCurrency(tx.amount)}
+                    {tx.type === 'Credit' ? '+' : '-'} {formatCurrency(tx.amount, account.currency as CurrencyCode)}
                   </span>
                 </div>
               ))

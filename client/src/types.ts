@@ -20,6 +20,17 @@ export interface UserSession {
   sessionDuration: number | null;
 }
 
+// Currency types
+export const CURRENCIES = {
+  USD: { code: "USD", symbol: "$", name: "Dólar estadounidense" },
+  EUR: { code: "EUR", symbol: "€", name: "Euro" },
+  COP: { code: "COP", symbol: "$", name: "Peso colombiano" },
+  GBP: { code: "GBP", symbol: "£", name: "Libra esterlina" },
+  BRL: { code: "BRL", symbol: "R$", name: "Real brasileño" },
+} as const;
+
+export type CurrencyCode = keyof typeof CURRENCIES;
+
 // Account types
 export interface Account {
   id: number;
@@ -29,6 +40,7 @@ export interface Account {
   balance: number;
   status?: string;
   statusMessage?: string;
+  currency?: CurrencyCode;
 }
 
 // Transaction types

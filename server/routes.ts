@@ -32,6 +32,9 @@ declare global {
 const MemoryStore = memorystore(session);
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize default data in database
+  await storage.initializeDefaultData();
+  
   // Setup session middleware
   app.use(session({
     cookie: { maxAge: 86400000 }, // 24 hours

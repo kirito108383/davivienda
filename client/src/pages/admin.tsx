@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
-import { User, Account, Transaction, UserSession } from "@/types";
+import { User, Account, Transaction, UserSession, CURRENCIES, CurrencyCode } from "@/types";
 import { formatCurrency, formatDateTime } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -116,7 +116,8 @@ const AdminPage = () => {
     accountType: "",
     balance: 0,
     status: "",
-    statusMessage: ""
+    statusMessage: "",
+    currency: "COP" as CurrencyCode
   });
   
   const [alertData, setAlertData] = useState({
@@ -845,6 +846,7 @@ const AdminPage = () => {
                       <th className="text-left p-4">Número de Cuenta</th>
                       <th className="text-left p-4">Tipo</th>
                       <th className="text-left p-4">Saldo</th>
+                      <th className="text-left p-4">Divisa</th>
                       <th className="text-left p-4">Estado</th>
                       <th className="text-left p-4">Acciones</th>
                     </tr>
@@ -857,7 +859,12 @@ const AdminPage = () => {
                           <td className="p-4">{account.userName || 'Desconocido'}</td>
                           <td className="p-4">{account.accountNumber}</td>
                           <td className="p-4">{account.accountType}</td>
-                          <td className="p-4">{formatCurrency(account.balance)}</td>
+                          <td className="p-4">{formatCurrency(account.balance, account.currency as CurrencyCode)}</td>
+                          <td className="p-4">
+                            <Badge variant="outline" className="text-xs">
+                              {CURRENCIES[account.currency as CurrencyCode || 'COP']?.symbol} {account.currency || 'COP'}
+                            </Badge>
+                          </td>
                           <td className="p-4">
                             <Badge className={account.status === 'BLOQUEADA' ? 'bg-red-500' : 'bg-green-500'}>
                               {account.status || 'ACTIVA'}
@@ -911,6 +918,7 @@ const AdminPage = () => {
                                   accountType: account.accountType,
                                   balance: account.balance,
                                   status: account.status || 'ACTIVA',
+                                  currency: (account.currency as CurrencyCode) || 'COP',
                                   statusMessage: account.statusMessage || ''
                                 });
                                 setIsEditAccountDialogOpen(true);
@@ -1541,6 +1549,27 @@ const AdminPage = () => {
                 onChange={(e) => setEditAccountData({...editAccountData, statusMessage: e.target.value})}
                 placeholder="Mensaje opcional para el estado de la cuenta"
               />
+            </div>
+            
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="currency" className="text-right">
+                Divisa
+              </Label>
+              <Select 
+                value={editAccountData.currency}
+                onValueChange={(value) => setEditAccountData({...editAccountData, currency: value as CurrencyCode})}
+              >
+                <SelectTrigger className="col-span-3" data-testid="select-currency">
+                  <SelectValue placeholder="Seleccione una divisa" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(CURRENCIES).map(([code, info]) => (
+                    <SelectItem key={code} value={code} data-testid={`currency-option-${code}`}>
+                      {info.symbol} - {info.name} ({code})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
           
