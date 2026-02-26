@@ -1,0 +1,22 @@
+Necesito implementar pagos reales con mi link de Takenos existente, pero SIN que el cliente vea mi nombre real al abrir el link o en la confirmación. Quiero seguir usando Takenos porque el dinero llega real a mi cuenta allí.
+
+Requisitos obligatorios:
+- Crear una página intermedia / pre-formulario de checkout en mi app Replit con MI branding completo: título con nombre comercial (ej: "Rey Premium Services" o el que te diga), logo (placeholder o URL), descripción del servicio/producto, campo para monto (o fijo), email/nombre cliente opcional, botón "Pagar Ahora".
+- El cliente NUNCA ve directamente el link crudo de Takenos al inicio.
+- Al clickear "Pagar Ahora", redirigir al link de pago de Takenos (pásame un placeholder como https://takenos.com/pay/xxxxxx o usa variable para que yo lo reemplace).
+- Opcional avanzado: si Takenos permite iframe o embed, intentar embed en mi página (pero fallback a redirect si no funciona por seguridad).
+- Después del pago (success page de Takenos), redirigir de vuelta a mi app (success URL con parámetro ?payment=success&order=123) para confirmar y dar acceso al servicio.
+- Agregar lógica simple: generar un ID de orden único, mostrar resumen antes de pagar, mensaje "Serás redirigido a la pasarela segura para completar el pago".
+- Frontend bonito: HTML/CSS/JS o React simple, con colores y logo custom.
+- No guardar datos de tarjeta ni nada sensible (todo en Takenos).
+- Instrucciones finales para mí: dónde pegar mi link real de Takenos, cómo configurar success URL en Takenos si existe, y cómo testear.
+
+Pasos exactos que debes hacer ahora:
+1. Pregúntame o asume nombre comercial ("Rey Premium Services"), monto ejemplo (ej: $20 USD), descripción servicio ("Acceso Premium Mensual"), y mi link de Takenos (usa placeholder como const takenosLink = "https://takenos.com/pago/tu-link-aqui";).
+2. Crea página /checkout con formulario pre-pago branded.
+3. Al submit → redirect a takenosLink (o append parámetros si Takenos los acepta, como ?amount=2000&description=Servicio).
+4. Crea página /success y /cancel.
+5. Agrega JS para generar ID orden y mostrarlo.
+6. Haz deploy y dame preview.
+
+Implementa el código completo YA: HTML/JS para frontend, cualquier backend si necesitas (Node o Python), y confirma cada paso. Prioriza redirect simple y seguro. Haz que parezca una pasarela propia aunque use Takenos detrás.
