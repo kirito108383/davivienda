@@ -1,0 +1,24 @@
+<div class="d-o-header__mobile"><a class="d-o-header__brand-mobile" href="/"> <img src="/documents/d/global/logodavivienda" alt="Ir al Inicio" loading="lazy"> </a>
+      <div class="d-o-header__mobile-buttons"><div class="d-o-header__mobile-buttons-login"><dav-button dav-id="headerButton-2" data-layer="{" event:="" davicom="" -="" redireccionamientos,="" zona:="" pública,="" eventcallback:="" buildgtmcallback(function()="" {window.location.href="https://transacciones.davivienda.com/transaccional/personas/nuevo/login.jsf" })}="" button-style="outlineWhite" button-size="sm" button-tag="link" link-href="https://transacciones.davivienda.com/transaccional/personas/nuevo/login.jsf" target="_blank" button-text="Iniciar sesión" class="sc-dav-button-h sc-dav-button-s hydrated"><!----><a id="headerButton-2" class="dav-button__outlineWhite sm sc-dav-button sc-dav-button-s" href="https://transacciones.davivienda.com/transaccional/personas/nuevo/login.jsf" target="_blank" aria-disabled="false">Iniciar sesión</a></dav-button>
+        <script>
+	document.addEventListener('DOMContentLoaded', function () {
+    var buttons = document.querySelectorAll('dav-button[dav-id^="headerButton-2"]');
+
+    buttons.forEach(function (button) {
+        button.addEventListener('davClick', function (event) {
+            event.preventDefault();
+					
+
+            var URL = button.getAttribute('link-Href');
+            var target = button.getAttribute('target');
+
+            window.dataLayer.push({"event": "Davicom - redireccionamientos", "zona": "Pública", "eventCallback": buildGtmCallback(function() {window.location.href = 'https://transacciones.davivienda.com/transaccional/personas/nuevo/login.jsf'})});
+             console.log(window.dataLayer);
+            });
+        });
+});
+</script>
+       </div>
+        <button class="d-o-header__toggle-colapse" type="button" id="burgerMenu" aria-controls="navbarSupportedContent" aria-label="Abrir navegacion" aria-expanded="false"> <i class="icon dav-i-menu-burger" aria-hidden="true"></i> </button> <button class="d-o-header__search-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Desplegar barra de busqueda"> <i class="icon dav-i-search" aria-hidden="true"></i> </button>
+      </div>
+     </div>
