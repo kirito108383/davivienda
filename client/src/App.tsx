@@ -30,6 +30,8 @@ import { IdleTimeout } from "@/components/IdleTimeout";
 import { useStore } from "@/lib/store";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { usePushNotifications } from "@/hooks/use-push-notifications";
+import { useWebSocket } from "@/hooks/use-websocket";
 
 const userRoutes: { path: string; component: ComponentType }[] = [
   { path: "/home", component: HomePage },
@@ -91,7 +93,66 @@ function App() {
   }, [userError, isAuthenticated, setLocation]);
 
   const isAdmin = user?.isAdmin === 1;
-  
+
+  // Sistema de notificaciones push y WebSocket
+  const {
+    isSupported: notificationsSupported,
+    isSubscribed,
+    permission,
+    requestPermission,
+    sendNotification
+  } = usePushNotifications();
+
+  // WebSocket para actualizaciones en tiempo real
+  useWebSocket({
+    onMessage: (data) => {
+      console.log('📡 Mensaje WebSocket recibido:', data);
+
+      // Manejar actualizaciones en tiempo real
+      if (data.type === 'BALANCE_UPDATE' && isAuthenticated) {
+        // Refrescar datos del usuario
+        refetch();
+        sendNotification({
+          title: 'Saldo Actualizado',
+          body: 'Tu saldo ha sido actualizado',
+          tag: 'balance-update'
+        });
+      }
+
+      if (data.type === 'NEW_TRANSACTION' && isAuthenticated) {
+        sendNotification({
+          title: 'Nueva Transacción',
+          body: `Transacción de ${data.amount} ${data.currency}`,
+          tag: 'new-transaction'
+        });
+      }
+
+      if (data.type === 'PAYMENT_REMINDER' && isAuthenticated) {
+        sendNotification({
+          title: 'Recordatorio de Pago',
+          body: data.message,
+          tag: 'payment-reminder'
+        });
+      }
+    },
+    onConnect: () => {
+      console.log('🔗 Conectado al servidor en tiempo real');
+    },
+    onDisconnect: () => {
+      console.log('🔌 Desconectado del servidor en tiempo real');
+    }
+  });
+
+  // Solicitar permisos de notificación al iniciar sesión
+  useEffect(() => {
+    if (isAuthenticated && notificationsSupported && permission === 'default') {
+      // Pequeño delay para no ser invasivo
+      setTimeout(() => {
+        requestPermission().catch(console.error);
+      }, 3000);
+    }
+  }, [isAuthenticated, notificationsSupported, permission, requestPermission]);
+
   return (
     <TooltipProvider>
       <Toaster />

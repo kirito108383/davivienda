@@ -1,7 +1,7 @@
 FROM node:18-alpine
 
 # Instalar dependencias del sistema
-RUN apk add --no-cache postgresql-client
+RUN apk add --no-cache postgresql-client git
 
 # Crear directorio de la aplicación
 WORKDIR /app
@@ -10,14 +10,17 @@ WORKDIR /app
 COPY package*.json ./
 COPY drizzle.config.ts ./
 
-# Instalar dependencias
-RUN npm ci --only=production
+# Instalar TODAS las dependencias (incluyendo devDependencies para el build)
+RUN npm ci
 
 # Copiar código fuente
 COPY . .
 
 # Construir la aplicación
 RUN npm run build
+
+# Limpiar dependencias de desarrollo después del build
+RUN npm prune --production
 
 # Exponer puerto
 EXPOSE 5000
