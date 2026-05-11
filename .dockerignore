@@ -1,9 +1,8 @@
 node_modules
-dist
-.DS_Store
-server/public
-vite.config.ts.*
-*.tar.gz
+npm-debug.log
+.git
+.gitignore
+README.md
 .env
 .env.local
 .env.development.local
@@ -12,9 +11,11 @@ vite.config.ts.*
 .nyc_output
 coverage
 .cache
+dist
 .vite
 .vercel
 .railway
 .vercel.json
-docker-compose.override.yml
-postgres_data
+docker-compose.yml
+Dockerfile
+.dockerignore
