@@ -1,5 +1,5 @@
-import { db } from './db';
-import { users, accounts, transactions, services, appSettings } from './schema';
+import { db } from '../server/db';
+import { users, accounts, transactions, services, appSettings } from '../shared/schema';
 import bcrypt from 'bcryptjs';
 
 async function seedDatabase() {
