@@ -2,30 +2,41 @@
 
 Aplicación de banca móvil completa con funcionalidades de cuenta, transferencias, pagos y administración.
 
-## 🚀 Despliegue Rápido
+## 🎉 ¡YA CONFIGURADO PARA DESPLIEGUE!
 
-### Opción 1: Vercel + Neon (Recomendado)
+Tu aplicación ya tiene:
+- ✅ Base de datos Neon configurada y funcionando
+- ✅ Datos de prueba inicializados
+- ✅ Build de producción listo
+- ✅ WebSocket para actualizaciones en tiempo real
 
-1. **Crear cuenta en Neon** (Base de datos gratuita):
-   - Ve a [neon.tech](https://neon.tech)
-   - Regístrate y crea un nuevo proyecto
-   - Copia la `DATABASE_URL` desde el dashboard
+## 🚀 Despliegue Inmediato
 
-2. **Desplegar en Vercel**:
-   ```bash
-   # Instalar Vercel CLI
-   npm i -g vercel
+### Opción 1: Vercel (Recomendado - 1 comando)
 
-   # Login en Vercel
-   vercel login
+```bash
+# Ejecutar despliegue automático
+./deploy-vercel.sh
+```
 
-   # Desplegar
-   vercel --prod
+Esto hará todo automáticamente:
+- Verificará Vercel CLI
+- Iniciará sesión si es necesario
+- Desplegará la aplicación
+- Configurará la base de datos Neon
 
-   # Configurar variables de entorno en Vercel:
-   # DATABASE_URL = postgresql://... (de Neon)
-   # NODE_ENV = production
-   ```
+### Opción 2: Despliegue Manual
+
+```bash
+# Instalar Vercel CLI
+npm install -g vercel
+
+# Iniciar sesión
+vercel login
+
+# Desplegar
+vercel --prod
+```
 
 ### Opción 2: Railway (Todo integrado)
 
@@ -92,15 +103,19 @@ Después del despliegue, tendrás URLs como:
 - ✅ PWA (instalable como app)
 - ✅ Diseño móvil-first
 
-## 🔐 Credenciales por Defecto
+## 🔐 Credenciales de Acceso
 
-**Usuario Admin:**
-- Usuario: `admin`
-- Contraseña: `admin123`
+**IMPORTANTE**: Cambia estas contraseñas inmediatamente después del primer login.
 
-**Usuario Regular:**
-- Cédula: `1234567890`
-- Contraseña: `user123`
+### Administrador del Sistema
+- **Usuario**: `admin`
+- **Contraseña**: `admin123`
+- **Acceso**: Panel administrativo completo
+
+### Usuario de Prueba
+- **Usuario**: `1234567890`
+- **Contraseña**: `user123`
+- **Saldo inicial**: $1,500,000 COP
 
 ## 🚨 Importante
 
