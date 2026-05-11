@@ -85,6 +85,19 @@
           "type": "image/png"
         }
       ]
+    },
+    {
+      "name": "Estado de Cuenta",
+      "short_name": "Saldo",
+      "description": "Consultar saldos y movimientos",
+      "url": "/home",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }
